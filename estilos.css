@@ -114,12 +114,8 @@ header {
   gap: 2rem 1rem;
 }
 
-.card {
-  display: grid;
-  grid-template-columns: 150px 1fr;
-  align-items: center;
-  gap: 3rem;
-}
+/* Pagina de search */
+
 
 hr {
   margin-block: 2rem;
@@ -150,11 +146,46 @@ hr {
   margin-block: 1rem;
 }
 
+/* Fin de pagina de search elementos */
+
+/* Abajo es CSS de modal de detalles */
+
+.modal {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 50vw;
+  z-index: 10;
+  border: none;
+}
+.modal::backdrop {
+  position: fixed;
+  inset: 0;
+  background: #0006;
+  backdrop-filter: blur(2px);
+}
+
+.card {
+  display: grid;
+  grid-template-columns: 150px 1fr 80px;
+  align-items: center;
+  gap: 2rem;
+  padding: 2rem;
+}
 .card-poster > img {
   width: 150px;
   aspect-ratio: 2 / 3;
 }
 
+.close-modal-btn {
+  padding: 5px 20px;
+  background-color: white;
+  border: 1px solid #222;
+  border-radius: 6px;
+  align-self: start;
+  
+}
 
 .card-meta {
   display: flex;
@@ -192,3 +223,5 @@ gap: 0.5rem 2rem;
 .card-synopsis > p {
   font-size: 1.2rem;
 }
+
+/*  Fin de modal */

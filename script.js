@@ -3,6 +3,7 @@ const searchBtn = document.querySelector('#search-btn')
 const mainContainer = document.querySelector('#main-container')
 const cardAddBtn = document.querySelector('#card-add-btn')
 const cardRemoveBtn = document.querySelector('#card-remove-btn')
+const modal = document.querySelector('#modal')
 
 // http://www.omdbapi.com/?i=tt3896198&apikey=b4ee78c6
 //  falta catch
@@ -24,13 +25,40 @@ function addEventsBtnDetail() {
   const btnArray = [...allDetailsBtn]
   btnArray.map(
     btn => btn.addEventListener('click', () => {
-      fetchData(btn.dataset.title, 't')
-      .then(data => console.log(data))
-      // Hace falta seguir y render HTML en el main container
-    }
+        fetchData(btn.dataset.title, 't')
+        .then(data => {
+          getDetailsHTML(data)
+          modal.showModal()
+          const closeModalBtn = document.querySelector('#close-modal-btn')
+          closeModalBtn.addEventListener('click', () => modal.close())
+          console.log(data)
+        })
+      }
     )
   )
-  // console.log(btnArray[0].dataset.title)
+}
+
+function getDetailsHTML(data) {
+  modal.innerHTML = `
+    <section class="card">
+      <div class="card-poster"><img src="${data.Poster}" alt="Movie Poster"></div>
+      <div class="card-meta">
+        <div class="card-title">
+          <h2>${data.Title}</h2>
+          <p>⭐️ <span>${data.imdbRating}</span></p>
+        </div>
+        <div class="card-details">
+          <p>${data.Runtime}</p>
+          <p>${data.Genre}</p>
+          <button id="card-add-btn" class="card-btn"><span>+</span> Watchlist</button>
+        </div>
+        <div class="card-synopsis">
+          <p>${data.Plot}</p>
+        </div>
+      </div>
+      <button id="close-modal-btn" class="close-modal-btn">Close</button>
+    </section>
+  `
 }
 
 function getSearchHTML(data) {
@@ -39,7 +67,7 @@ function getSearchHTML(data) {
       return `
         <section class="search-card">
           <div>
-            <div class="search-card-poster"><img src="${singleMovie.Poster}" alt="Algo asi"></div>
+            <div class="search-card-poster"><img src="${singleMovie.Poster}" alt="Movie Poster"></div>
           </div>
           <div class="search-card-meta">
             <button id="card-details-btn" class="search-card-btn" data-title="${singleMovie.Title}" >Get details ...</button>
