@@ -1,9 +1,9 @@
 const searchField = document.querySelector('#search-field');
 const searchBtn = document.querySelector('#search-btn')
 const mainContainer = document.querySelector('#main-container')
-const cardAddBtn = document.querySelector('#card-add-btn')
 const cardRemoveBtn = document.querySelector('#card-remove-btn')
 const modal = document.querySelector('#modal')
+const watchlistArray = []
 
 // http://www.omdbapi.com/?i=tt3896198&apikey=b4ee78c6
 //  falta catch
@@ -25,13 +25,17 @@ function addEventsBtnDetail() {
   const btnArray = [...allDetailsBtn]
   btnArray.map(
     btn => btn.addEventListener('click', () => {
-        fetchData(btn.dataset.title, 't')
-        .then(data => {
-          getDetailsHTML(data)
-          modal.showModal()
-          const closeModalBtn = document.querySelector('#close-modal-btn')
-          closeModalBtn.addEventListener('click', () => modal.close())
-          console.log(data)
+      fetchData(btn.dataset.title, 't')
+      .then(data => {
+        getDetailsHTML(data)
+        modal.showModal()
+        const closeModalBtn = document.querySelector('#close-modal-btn')
+        closeModalBtn.addEventListener('click', () => modal.close())
+        const cardAddBtn = document.querySelector('#card-add-btn')
+        cardAddBtn.addEventListener('click', () => {
+          watchlistArray.push(data)
+          window.localStorage.setItem('myWatchlist', JSON.stringify(watchlistArray))
+        })
         })
       }
     )
