@@ -11,7 +11,7 @@ const watchlistArray = []
 searchBtn.addEventListener('click', searchMovies)
 
 async function fetchData(searchInput, type) {
-  const res = await fetch(`http://www.omdbapi.com/?i=tt3896198&apikey=b4ee78c6&${type}=${searchInput}`)
+  const res = await fetch(`https://www.omdbapi.com/?i=tt3896198&apikey=b4ee78c6&${type}=${searchInput}`)
   const data = await res.json()
   return data
 }
