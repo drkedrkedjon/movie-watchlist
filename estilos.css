@@ -64,6 +64,8 @@ header {
   background-position: bottom;
   background-size: cover;
   background-color: rgba(0, 0, 0, 0.8);
+  /* popo abajo */
+  -webkit-background-blend-mode: darken; 
   background-blend-mode: darken;
   border: 2px dashed black;
   border-bottom: none;
@@ -216,8 +218,11 @@ gap: 0.5rem 2rem;
   height: 20px;
   padding: 1px;
   border-radius: 50%;
-  background-color: #222;
+  background-color: green;
   color: aliceblue;
+}
+.card-btn:hover {
+  color: red;
 }
   
 .card-synopsis > p {
@@ -225,3 +230,26 @@ gap: 0.5rem 2rem;
 }
 
 /*  Fin de modal */
+
+/* Watchlist pagina */
+
+.watchlist-container {
+  background-color: antiquewhite;
+  color: #222;
+  padding: 3rem 5rem;
+}
+
+.card-watchlist-page {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  align-items: center;
+  gap: 3rem;
+}
+
+.watchlist-header {
+  padding-bottom: 4rem;
+}
+
+.card-btn > .red {
+  background-color: red;
+}
