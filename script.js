@@ -5,30 +5,41 @@ const cardRemoveBtn = document.querySelector('#card-remove-btn')
 const modal = document.querySelector('#modal') 
 let watchlistArray = []
 
-//  falta catch
-
-
 // Ver si hay data en Local Storage y si es si, cargar nuestro array con su contenido
 const loadLocalStorage = JSON.parse( localStorage.getItem('myWatchlist') )
-if(loadLocalStorage) {
-  watchlistArray = loadLocalStorage
-  console.log(watchlistArray)
+loadLocalStorage ? watchlistArray = loadLocalStorage : watchlistArray
+
+// Obtener el termino de busqueda
+searchBtn.addEventListener('click', searchMovies)
+function searchMovies() {
+  const searchInput = searchField.value
+  fetchData(searchInput, 's')
+  .then(data => getSearchHTML(data.Search))
 }
 
-searchBtn.addEventListener('click', searchMovies)
 
-
-
+// Function que obtiene data desde API utilizando fetch
 async function fetchData(searchInput, type) {
-  const res = await fetch(`https://www.omdbapi.com/?i=tt3896198&apikey=b4ee78c6&${type}=${searchInput}`)
-  const data = await res.json()
-  return data
+  try {
+    const res = await fetch(`https://www.omdbapi.com/?i=tt3896198&apikey=b4ee78c6&${type}=${searchInput}`)
+    const data = await res.json()
+    // Condicional que capta errores de busqueda
+    if(data.Response === 'False') {
+      mainContainer.innerHTML = `<p>${data.Error}</p>`
+    } else {
+      return data
+    }
+  } catch (err) {
+    // Bloque catch para captar errores 200
+    mainContainer.innerHTML = `<p>Sorry, looks like we have a following problem: ${err}</p>`
+  }
 }
 
 function renderHTML(searchHTML) {
   mainContainer.innerHTML = searchHTML
 }
 
+// Despues de render codigo HTML con resultados de la busqueda
 function addEventsBtnDetail() {
   const allDetailsBtn = document.querySelectorAll('#card-details-btn')
   const btnArray = [...allDetailsBtn]
@@ -95,8 +106,4 @@ function getSearchHTML(data) {
     addEventsBtnDetail()
   }
   
-  function searchMovies() {
-    const searchInput = searchField.value
-    fetchData(searchInput, 's')
-    .then(data => getSearchHTML(data.Search))
-}
+  

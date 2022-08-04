@@ -37,10 +37,8 @@ function removeBtnEventListeners() {
       const btnData = btn.getAttribute('data-movie-title')
       const indice = watchList.findIndex( movie => movie.Title === btnData)
       watchList.splice(indice, 1)
-
-      // Aqui ahora vamos a mandar watchList a local storage
-
-
+      window.localStorage.setItem('myWatchlist', JSON.stringify(watchList))
+      loadWatchlistFromStorage()
 
     }) 
   } )
