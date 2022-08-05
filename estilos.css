@@ -59,14 +59,12 @@ body {
 header {
   padding: 3rem;
   padding-bottom: 0;
+  background-blend-mode: darken;
+  background-color: rgba(0, 0, 0, 0.8);
   background-image: url(./images/header-image.jpg);
   background-repeat: none;
   background-position: bottom;
-  background-size: cover;
-  background-color: rgba(0, 0, 0, 0.8);
-  /* popo abajo */
-  -webkit-background-blend-mode: darken; 
-  background-blend-mode: darken;
+  background-size: cover; 
   border: 2px dashed black;
   border-bottom: none;
 }
